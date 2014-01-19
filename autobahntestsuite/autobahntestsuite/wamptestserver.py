@@ -20,6 +20,8 @@ import math, shelve, decimal
 
 from twisted.internet import reactor, defer
 
+from autobahn.twisted.websocket import listenWS
+
 from autobahn.wamp import exportRpc, \
                           exportSub, \
                           exportPub, \
@@ -273,3 +275,12 @@ class WampTestServerFactory(WampServerFactory):
       self.keyvalue = KeyValue("keyvalue.dat")
 
       decimal.getcontext().prec = 20
+
+
+def startServer(wsuri, debug = False):
+   factory = WampTestServerFactory(wsuri, debug)
+   factory.protocol = WampTestServerProtocol
+   
+   listenWS(factory)
+   return True
+

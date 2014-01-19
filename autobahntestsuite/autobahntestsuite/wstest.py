@@ -46,6 +46,7 @@ import broadcast
 import massconnect
 import wsperfcontrol
 import wsperfmaster
+import wamptestserver
 
 
 from spectemplate import SPEC_FUZZINGSERVER, \
@@ -221,7 +222,10 @@ class WsTestRunner(object):
 
       elif self.mode == "massconnect":
          return massconnect.startClient(self.spec, debug = self.debug)
-
+      
+      elif self.mode == "wampserver":
+         return wamptestserver.startServer(self.options['wsuri'], self.debug)
+      
       else:
          raise Exception("no mode '%s'" % self.mode)
 
